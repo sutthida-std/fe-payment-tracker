@@ -5,17 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FE CAMP 2026 Tracker</title>
     <style>
-        body { font-family: 'Kanit', sans-serif; background: linear-gradient(135deg, #FF6600 0%, #ff8c00 100%); display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
-        .container { background: white; padding: 40px; border-radius: 25px; box-shadow: 0 15px 35px rgba(0,0,0,0.2); width: 90%; max-width: 400px; text-align: center; }
-        h2 { color: #333; margin-bottom: 25px; }
-        input { width: 100%; padding: 15px; margin-bottom: 15px; border: 2px solid #eee; border-radius: 12px; font-size: 18px; box-sizing: border-box; transition: 0.3s; }
-        input:focus { border-color: #FF6600; outline: none; }
-        button { width: 100%; padding: 15px; background: #FF6600; color: white; border: none; border-radius: 12px; font-size: 18px; font-weight: bold; cursor: pointer; transition: 0.3s; }
-        button:hover { background: #e65c00; transform: translateY(-2px); }
-        #result { display: none; margin-top: 30px; padding: 20px; border-radius: 15px; background: #fafafa; text-align: left; border-left: 6px solid #FF6600; letter-spacing: 0.25px;}
-        .paid { color: #28a745; font-weight: bold; }
-        .pending { color: #dc3545; font-weight: bold; }
-    </style>
+    body { font-family:'Kanit',sans-serif;background:linear-gradient(135deg,#FF6600 0%,#ff8c00 100%);display:flex;justify-content:center;align-items:center;min-height:100vh;margin:0;padding:20px }
+    .container { background:white;padding:30px 20px;border-radius:20px;box-shadow:0 15px 35px rgba(0,0,0,0.2);width:100%;max-width:350px;text-align:center;box-sizing:border-box }
+    h2 { color:#333;margin-bottom:20px;font-size:1.5rem }
+    input { width:100%;padding:12px;margin-bottom:15px;border:2px solid #eee;border-radius:10px;font-size:16px;box-sizing:border-box;transition:0.3s }
+    input:focus { border-color:#FF6600;outline:none }
+    button { width:100%;padding:14px;background:#FF6600;color:white;border:none;border-radius:10px;font-size:17px;font-weight:bold;cursor:pointer;transition:0.3s }
+    button:hover { background:#e65c00;transform:translateY(-2px) }
+    #result { display:none;margin-top:20px;padding:15px;border-radius:12px;background:#fafafa;text-align:left;border-left:5px solid #FF6600;letter-spacing:0.5px;font-size:14px;line-height:1.6 } 
+    .paid { color:#28a745;font-weight:bold }
+    .pending { color:#dc3545;font-weight:bold }
+</style>
+
     <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;500&display=swap" rel="stylesheet">
 </head>
 <body>
