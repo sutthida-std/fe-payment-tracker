@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FE CAMP 2026 Tracker</title>
+    <style>
+        body { font-family: 'Kanit', sans-serif; background: linear-gradient(135deg, #FF6600 0%, #ff8c00 100%); display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
+        .container { background: white; padding: 40px; border-radius: 25px; box-shadow: 0 15px 35px rgba(0,0,0,0.2); width: 90%; max-width: 400px; text-align: center; }
+        h2 { color: #333; margin-bottom: 25px; }
+        input { width: 100%; padding: 15px; margin-bottom: 15px; border: 2px solid #eee; border-radius: 12px; font-size: 18px; box-sizing: border-box; transition: 0.3s; }
+        input:focus { border-color: #FF6600; outline: none; }
+        button { width: 100%; padding: 15px; background: #FF6600; color: white; border: none; border-radius: 12px; font-size: 18px; font-weight: bold; cursor: pointer; transition: 0.3s; }
+        button:hover { background: #e65c00; transform: translateY(-2px); }
+        #result { display: none; margin-top: 30px; padding: 20px; border-radius: 15px; background: #fafafa; text-align: left; border-left: 6px solid #FF6600; letter-spacing: 0.25px;}
+        .paid { color: #28a745; font-weight: bold; }
+        .pending { color: #dc3545; font-weight: bold; }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;500&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<div class="container">
+    <h2>Payment Status 🔍</h2>
+    <input type="text" id="studentId" placeholder="6701XXXX">
+    <button onclick="checkStatus()">Verify Status</button>
+
+    <div id="result">
+        <p><strong>Full Name:</strong> <span id="nameDisplay"></span></p>
+        <p><strong>Nick Name:</strong> <span id="nickDisplay"></span></p>
+        <p><strong>Current Status:</strong> <span id="statusDisplay"></span></p>
+    </div>
+</div>
+
+<script>
+    async function checkStatus() {
+        const id = document.getElementById('studentId').value;
+        const resDiv = document.getElementById('result');
+        // *** วาง URL ที่ได้จาก Apps Script ตรงนี้ ***
+        const scriptUrl = "https://script.google.com/macros/s/AKfycbzfBJHoFZViMXdvev6VCERBeBgQ8_cRWKOWBGhZDCejTxT-73VJ52gmC9M_R5jGEt4o/exec"; 
+
+        if(!id) return alert("Please enter a valid 8-digit Student ID");
+
+        try {
+            const response = await fetch(`${scriptUrl}?id=${id}`);
+            const data = await response.json();
+
+            if(data.status === "success") {
+                document.getElementById('nameDisplay').innerText = data.name;
+                document.getElementById('nickDisplay').innerText = data.nickname || "-";
+                const st = document.getElementById('statusDisplay');
+                
+                // เช็กคำว่า Paid จากคอลัมน์ Status ใน Sheet
+                if(data.payStatus === "Paid") {
+                    st.innerText = "PAID ✅";
+                    st.className = "paid";
+                } else {
+                    st.innerText = "AWAITING PAYMENT ⏳"
+                    st.className = "pending";
+                }
+                resDiv.style.display = 'block';
+            } else {
+                alert("Student ID not found in the database");
+                resDiv.style.display = 'none';
+            }
+        } catch (e) {
+            alert("Connection error. Please try again.");
+        }
+    }
+</script>
+</body>
+</html>
